@@ -1,0 +1,13 @@
+region                  = "us-east-1"
+account_id              = "REPLACE-account-id"
+cluster_name            = "REPLACE-cluster"
+kubernetes_version      = "REPLACE-supported-version"
+vpc_id                  = "REPLACE-vpc"
+private_subnet_ids      = ["REPLACE-subnet-a", "REPLACE-subnet-b"]
+agent_security_group_id = "REPLACE-private-agent-sg"
+ecr_repository          = "orders"
+secrets_kms_key_arn     = "REPLACE-reviewed-kms-key-arn"
+admin_role_arns         = ["REPLACE-platform-oidc-role-arn"]
+deployment_role_arn     = "REPLACE-deployment-oidc-role-arn"
+vpc_cni_version         = "REPLACE-compatible-addon-version"
+app_name                = "orders"

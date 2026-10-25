@@ -1,0 +1,4 @@
+.git
+.aks-migration
+.azure-pipelines
+__pycache__

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: eks-launchbridge-workload
+description: Hardened stateless HTTP workload baseline; review sizing and dependencies before use.
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

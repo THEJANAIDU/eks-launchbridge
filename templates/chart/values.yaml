@@ -1,0 +1,29 @@
+{
+  "appName": "orders",
+  "image": {
+    "repository": "111122223333.dkr.ecr.us-east-1.amazonaws.com/orders",
+    "digest": ""
+  },
+  "port": 8080,
+  "healthPath": "/healthz",
+  "replicas": 2,
+  "environment": "staging",
+  "workloadIdentityRoleArn": "",
+  "ingressNamespace": "ingress-system",
+  "egress": [],
+  "resources": {
+    "requests": {
+      "cpu": "100m",
+      "memory": "128Mi"
+    },
+    "limits": {
+      "cpu": "1000m",
+      "memory": "512Mi"
+    }
+  },
+  "autoscaling": {
+    "minReplicas": 2,
+    "maxReplicas": 6,
+    "cpuPercent": 70
+  }
+}

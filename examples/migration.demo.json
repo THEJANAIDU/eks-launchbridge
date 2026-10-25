@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "app": {
+    "name": "orders",
+    "port": 8080,
+    "health_path": "/healthz"
+  },
+  "source": {
+    "dockerfile": "Dockerfile",
+    "context": ".",
+    "vm_pipeline": "azure-pipelines.yml"
+  },
+  "pipeline": {
+    "service_connection": "eks-deploy-oidc",
+    "agent_pool": "aks-private-agents",
+    "staging_environment": "orders-staging",
+    "production_environment": "orders-production",
+    "build_service_connection": "ecr-build-oidc",
+    "platform_service_connection": "eks-platform-oidc",
+    "application_pipeline": "orders-container",
+    "application_project": "YourProject",
+    "application_branch": "main",
+    "ops_approvers": "[YourProject]\\Ops-DevOps"
+  },
+  "assessment": {
+    "local_disk": false,
+    "database_in_vm": false,
+    "in_memory_sessions": false,
+    "windows_required": false,
+    "privileged_access": false,
+    "background_jobs": false,
+    "dependencies_reviewed": true,
+    "health_checked": true,
+    "container_tested": true,
+    "rollback_reviewed": true
+  },
+  "network": {
+    "ingress_namespace": "ingress-system",
+    "egress": []
+  },
+  "aws": {
+    "account_id": "111122223333",
+    "region": "us-east-1",
+    "cluster_name": "eks-orders",
+    "ecr_repository": "orders"
+  },
+  "workload_identity_role_arn": ""
+}

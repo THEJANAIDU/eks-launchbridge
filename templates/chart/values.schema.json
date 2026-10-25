@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "appName",
+    "image",
+    "port",
+    "healthPath",
+    "replicas",
+    "environment",
+    "workloadIdentityRoleArn",
+    "ingressNamespace",
+    "egress",
+    "resources",
+    "autoscaling"
+  ],
+  "properties": {
+    "appName": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,29}$"
+    },
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "digest"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "pattern": "^[0-9]{12}\\.dkr\\.ecr\\.[a-z0-9-]+\\.amazonaws\\.com/[a-z0-9._/-]+$"
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        }
+      }
+    },
+    "port": {
+      "type": "integer",
+      "minimum": 1024,
+      "maximum": 65535
+    },
+    "healthPath": {
+      "type": "string",
+      "pattern": "^/[A-Za-z0-9/_-]*$"
+    },
+    "replicas": {
+      "type": "integer",
+      "minimum": 2
+    },
+    "environment": {
+      "enum": [
+        "staging",
+        "production"
+      ]
+    },
+    "workloadIdentityRoleArn": {
+      "type": "string",
+      "pattern": "^$|^arn:aws:iam::[0-9]{12}:role/[A-Za-z0-9/_+=,.@-]+$"
+    },
+    "ingressNamespace": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,62}$"
+    },
+    "egress": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "cidr",
+          "port"
+        ],
+        "properties": {
+          "cidr": {
+            "type": "string"
+          },
+          "port": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 65535
+          }
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "required": [
+        "requests",
+        "limits"
+      ],
+      "properties": {
+        "requests": {
+          "type": "object",
+          "required": [
+            "cpu",
+            "memory"
+          ]
+        },
+        "limits": {
+          "type": "object",
+          "required": [
+            "cpu",
+            "memory"
+          ]
+        }
+      }
+    },
+    "autoscaling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minReplicas",
+        "maxReplicas",
+        "cpuPercent"
+      ],
+      "properties": {
+        "minReplicas": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "maxReplicas": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "cpuPercent": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 95
+        }
+      }
+    }
+  }
+}

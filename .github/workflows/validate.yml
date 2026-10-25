@@ -1,0 +1,25 @@
+name: Validate EKS LaunchBridge
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: azure/setup-helm@v4.3.0
+        with:
+          version: v3.19.0
+      - run: pip install -r requirements-dev.txt
+      - run: RUN_DOCKER_TESTS=1 python -m pytest -q
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.12.2
+      - name: Validate infrastructure without deploying
+        run: |
+          terraform -chdir=templates/infra init -backend=false -input=false
+          terraform -chdir=templates/infra validate

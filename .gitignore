@@ -1,0 +1,14 @@
+__pycache__/
+.pytest_cache/
+.venv/
+.env
+inventory*.json
+*.kubeconfig
+*.tfstate*
+*.bicep.json
+work/
+.DS_Store
+.terraform/
+terraform.tfvars
+backend.hcl
+*.tfplan

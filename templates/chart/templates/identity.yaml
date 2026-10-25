@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Values.appName }}
+  {{- if .Values.workloadIdentityRoleArn }}
+  annotations:
+    eks.amazonaws.com/role-arn: {{ .Values.workloadIdentityRoleArn | quote }}
+  {{- end }}
+automountServiceAccountToken: false

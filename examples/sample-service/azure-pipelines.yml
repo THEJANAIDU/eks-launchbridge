@@ -1,0 +1,6 @@
+# Illustrative existing VM pipeline: the agent must preserve this file byte for byte.
+trigger: none
+pool:
+  vmImage: ubuntu-latest
+steps:
+  - script: echo "Existing VM release pipeline placeholder; no VM is changed by this example."
